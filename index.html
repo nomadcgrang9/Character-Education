@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인터랙티브 대시보드 | 2025 1학기 성남화랑 생활인성부서협의 </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            /* 테마 색상 */
+            --primary-color: #8A2BE2; /* 보라 */
+            --secondary-color: #FF1493; /* 핑크 */
+            --accent-color: #f59e0b;  /* 노랑/주황 */
+            --background-color: #f8f7f4;
+            --text-color: #1f2937;
+            --card-bg-color: #ffffff;
+            --border-color: #e5e7eb;
+            --sidebar-bg: #ffffff;
+            --sidebar-width: 260px;
+
+            /* 새 그래프 색상 */
+            --teacher-color: #56B4E9; /* 교원: 하늘색 */
+            --student-color: #E69F00; /* 학생: 주황색 */
+        }
+
+        body {
+            font-family: "Paperlogy", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        /* --- 사이드바 내비게이션 --- */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background-color: var(--sidebar-bg);
+            padding: 2rem 1.5rem;
+            box-sizing: border-box;
+            border-right: 1px solid var(--border-color);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: 0.8rem 1rem;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            transition: background-color 0.2s, color 0.2s;
+            cursor: pointer;
+        }
+
+        .sidebar-nav a:hover {
+            background-color: rgba(138, 43, 226, 0.1);
+        }
+
+        .sidebar-nav a.active {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+        
+        /* --- 메인 콘텐츠 영역 --- */
+        main {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .content-section {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 2rem; /* 패딩 조정 */
+            box-sizing: border-box;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section.is-active {
+            display: flex;
+        }
+
+        .slide-content {
+            display: flex;
+            align-items: center; /* 컨텐츠 수직 중앙 정렬 */
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px; /* 최대 너비 확장 */
+            gap: 3rem;
+        }
+        
+        .slide:nth-child(even) .slide-content {
+            flex-direction: row-reverse;
+        }
+        
+        .visual-container { flex: 1 1 55%; display: flex; flex-direction: column; gap: 2rem; align-items: center; justify-content: center; text-align: center; }
+        .text-container { flex: 1 1 40%; padding-top: 1rem; }
+        h2 { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 2rem; padding-bottom: 0.5rem; border-bottom: 3px solid var(--secondary-color); display: inline-block; }
+        ul { list-style: none; padding: 0; }
+        li { 
+            font-size: 1.15rem; /* 폰트 크기 미세 조정 */
+            line-height: 1.8; 
+            margin-bottom: 1rem; 
+            padding-left: 0; 
+        }
+        li strong { color: var(--primary-color); font-weight: 600; }
+
+        .bar-chart, .stacked-chart-container { width: 100%; max-width: 550px; padding: 1.5rem; background-color: var(--card-bg-color); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .chart-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 1.5rem; text-align: center; }
+        .bar-item { display: flex; align-items: center; margin-bottom: 1rem; }
+        .bar-label { width: 150px; text-align: right; padding-right: 10px; font-size: 0.9rem; flex-shrink: 0; }
+        .bar-wrapper { flex-grow: 1; background-color: #f0f0f0; border-radius: 4px; height: 25px; }
+        .bar { height: 100%; border-radius: 4px; color: white; text-align: right; padding-right: 8px; box-sizing: border-box; line-height: 25px; font-size: 0.85rem; animation: slideIn 1s ease-out; white-space: nowrap; font-weight: 500;}
+        @keyframes slideIn { from { width: 0; } }
+        
+        /* 비교 차트 스타일 */
+        .comparison-chart .bar-item { flex-direction: column; align-items: stretch; margin-bottom: 1.5rem; }
+        .comparison-chart .bar-label-group { font-weight: bold; margin-bottom: 0.5rem; text-align: left; font-size: 1rem; }
+        .comparison-chart .bar-sub-item { display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .comparison-chart .bar-sub-label { width: 50px; font-size: 0.9rem; color: #555; }
+        
+        .icon-display { font-size: 10rem; color: var(--primary-color); opacity: 0.8; }
+        .quote-display { padding: 2rem; text-align: center; border-left: 5px solid var(--secondary-color); background: rgba(138, 43, 226, 0.05); }
+        .quote-display p { font-size: 1.8rem; line-height: 1.6; color: var(--primary-color); margin: 0; font-style: italic; }
+        .quote-display footer { margin-top: 1rem; font-size: 1rem; color: var(--text-color); }
+        
+        .hero { text-align: center; }
+        .hero h1 { font-size: 3.5rem; color: var(--primary-color); margin-bottom: 1rem; font-weight: 700; line-height: 1.2; }
+        .hero p { font-size: 1.5rem; color: var(--text-color); max-width: 600px; margin: 0 auto; }
+
+        @media (max-width: 1024px) {
+            .sidebar { display: none; }
+            main { margin-left: 0; width: 100%; }
+            body, main { overflow-y: auto; }
+            .content-section { padding: 4rem 1.5rem; height: auto; min-height: 100vh; }
+            .slide-content, .slide:nth-child(even) .slide-content { flex-direction: column; gap: 1rem; align-items: center;}
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">목차</div>
+        <div class="sidebar-nav">
+            <ul>
+                <li><a href="#top" class="active">생활인성부</a></li>
+                <li><a href="#s1">학교폭력 발생현황</a></li>
+                <li><a href="#s2">학교폭력 유형분석</a></li>
+                <li><a href="#s3">사전진단-너나우리 프로그램</a></li>
+                <li><a href="#s4">사후지원-관계돋움 프로그램</a></li>
+                <li><a href="#s5">관계돋움-총평</a></li>
+                <li><a href="#s6">관계돋움-평균 만족도</a></li>
+                <li><a href="#s7">관계돋움-항목별 만족도</a></li>
+                <li><a href="#s8">관계돋움-개선과제</a></li>
+                <li><a href="#s9">종합결론 및 제언</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section id="top" class="hero content-section is-active">
+              <h1><strong>2025년 1학기</strong><br>성남화랑 생활인성교육 토의</h1>
+              <p>증거기반 분석으로 2학기 학생생활교육 지원 방향 모색</p>
+        </section>
+
+        <!-- s1 ~ s5 sections are the same as before -->
+        <section id="s1" class="slide content-section">
+            <div class="slide-content">
+                <div class="visual-container">
+                     <div class="bar-chart">
+                         <div class="chart-title">연도별 학교폭력 발생 추이 (2022-2025)</div>
+                         <div class="bar-item"><div class="bar-label">2022년</div><div class="bar-wrapper"><div class="bar" style="width: 100%; background-color: #8A2BE2;">12건</div></div></div>
+                         <div class="bar-item"><div class="bar-label">2023년</div><div class="bar-wrapper"><div class="bar" style="width: 58.3%; background-color: #9d5de8;">7건</div></div></div>
+                         <div class="bar-item"><div class="bar-label">2024년</div><div class="bar-wrapper"><div class="bar" style="width: 33.3%; background-color: #b08ef0;">4건</div></div></div>
+                         <div class="bar-item"><div class="bar-label">2025년</div><div class="bar-wrapper"><div class="bar" style="width: 8.3%; background-color: #c4bff5;">1건</div></div></div>
+                    </div>
+                </div>
+                <div class="text-container">
+                    <h2>학교폭력 발생 현황</h2>
+                    <ul>
+                        <li><strong>지속적 감소:</strong> '22년 12건에서 '25년 1건으로 <strong>90% 이상 큰 폭으로 감소</strong>하는 긍정적 추세 확인됨</li>
+                        <li><strong>주요 유형:</strong> <strong>신체폭력(19건)</strong>이 가장 빈번하며, 언어폭력(5건), 금품갈취(4건) 순으로 나타남</li>
+                        <li><strong>학년 집중:</strong> <strong>6학년(10건)</strong>에 발생이 집중되며, 5학년(5건)부터 급증하는 경향을 보임</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section id="s2" class="slide content-section">
+             <div class="slide-content">
+                <div class="visual-container">
+                   <div class="bar-chart">
+                        <div class="chart-title">폭력 특성 비교 분석</div>
+                        <div class="bar-item"><div class="bar-label">우발적</div><div class="bar-wrapper"><div class="bar" style="width: 80%; background-color: #ff69b4;">13건</div></div></div>
+                        <div class="bar-item"><div class="bar-label">계획적</div><div class="bar-wrapper"><div class="bar" style="width: 62%; background-color: #ff85c6;">10건</div></div></div>
+                        <hr style="margin: 2rem 0; border-color: var(--border-color);">
+                        <div class="bar-item"><div class="bar-label">개인 폭력</div><div class="bar-wrapper"><div class="bar" style="width: 100%; background-color: var(--secondary-color);">16건</div></div></div>
+                        <div class="bar-item"><div class="bar-label">집단 폭력</div><div class="bar-wrapper"><div class="bar" style="width: 43%; background-color: #ff85c6;">7건</div></div></div>
+                    </div>
+                </div>
+                <div class="text-container">
+                    <h2>폭력 유형 심층 분석</h2>
+                    <ul>
+                        <li><strong>사건 특성:</strong> <strong>우발적 사건(13건)</strong>이 계획적 사건(10건)보다 다소 많게 발생함</li>
+                        <li><strong>가해 형태:</strong> <strong>개인 간 폭력(16건)</strong>이 집단 폭력(7건)보다 2배 이상 많아, 관계 중심의 개입이 중요함</li>
+                        <li><strong>발생 장소:</strong> <strong>학교 밖(12건)</strong>이 학교 안(10건)보다 많아, 교외 생활 지도의 중요성 부각됨</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section id="s3" class="slide content-section">
+            <div class="slide-content">
+                <div class="visual-container">
+                    <div class="icon-display"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                </div>
+                <div class="text-container">
+                    <h2>사전 진단: 주요 위기 학급</h2>
+                    <ul>
+                        <li><strong>정서적 단절:</strong> 6학년 일부 학급에서 하위 그룹 간 <strong>구조적 분리 및 응집력 저하</strong> 현상 발견됨</li>
+                        <li><strong>관계 미숙:</strong> 저학년(3-4학년) 중심의 <strong>사회성 미성숙 및 자기조절 부족</strong>으로 인한 잦은 갈등 발생</li>
+                        <li><strong>붕괴 위험:</strong> 특정 학급은 <strong>집단 붕괴 위험</strong>이 있는 심리적 해체 상태로, 긴급 지원 필요성 확인</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section id="s4" class="slide content-section">
+            <div class="slide-content">
+                <div class="visual-container">
+                    <div class="stacked-chart-container">
+                        <div class="chart-title">학급별 맞춤형 프로그램 지원 현황 (단위: 차시)</div>
+                        <div class="stacked-chart" style="display: flex; justify-content: space-around; align-items: flex-end; height: 300px; width: 100%; padding: 0 1rem; box-sizing: border-box;">
+                            <div style="text-align: center; margin-top: 10px; font-weight: bold;"><div style="width: 50px; display: flex; flex-direction: column-reverse; position: relative; animation: growUp 1s ease-out; transform-origin: bottom; height: 160px;"><span style="position: absolute; top: -25px; width: 100%; text-align: center; font-weight: bold; color: var(--text-color);">16</span><div style="flex-basis: 87.5%; background-color: var(--primary-color); width: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: bold;">14</div><div style="flex-basis: 12.5%; background-color: var(--secondary-color); width: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: bold;">2</div></div>A반</div>
+                            <div style="text-align: center; margin-top: 10px; font-weight: bold;"><div style="width: 50px; display: flex; flex-direction: column-reverse; position: relative; animation: growUp 1s ease-out; transform-origin: bottom; height: 160px;"><span style="position: absolute; top: -25px; width: 100%; text-align: center; font-weight: bold; color: var(--text-color);">16</span><div style="flex-basis: 87.5%; background-color: var(--primary-color); width: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: bold;">14</div><div style="flex-basis: 12.5%; background-color: var(--secondary-color); width: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: bold;">2</div></div>B반</div>
+                            <div style="text-align: center; margin-top: 10px; font-weight: bold;"><div style="width: 50px; display: flex; flex-direction: column-reverse; position: relative; animation: growUp 1s ease-out; transform-origin: bottom; height: 240px;"><span style="position: absolute; top: -25px; width: 100%; text-align: center; font-weight: bold; color: var(--text-color);">24</span><div style="flex-basis: 25%; background-color: var(--accent-color); width: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: bold;">6</div><div style="flex-basis: 66.7%; background-color: var(--primary-color); width: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: bold;">16</div><div style="flex-basis: 8.3%; background-color: var(--secondary-color); width: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: bold;">2</div></div>C반</div>
+                            <div style="text-align: center; margin-top: 10px; font-weight: bold;"><div style="width: 50px; display: flex; flex-direction: column-reverse; position: relative; animation: growUp 1s ease-out; transform-origin: bottom; height: 40px;"><span style="position: absolute; top: -25px; width: 100%; text-align: center; font-weight: bold; color: var(--text-color);">4</span><div style="flex-basis: 50%; background-color: var(--accent-color); width: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: bold;">2</div><div style="flex-basis: 50%; background-color: var(--secondary-color); width: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: bold;">2</div></div>D반</div>
+                        </div>
+                        <div style="display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem; flex-wrap: wrap;">
+                            <div style="display: flex; align-items: center; font-size: 0.9rem;"><span style="width: 15px; height: 15px; margin-right: 5px; border-radius: 3px; background-color: var(--secondary-color);"></span>나, 너 우리</div>
+                            <div style="display: flex; align-items: center; font-size: 0.9rem;"><span style="width: 15px; height: 15px; margin-right: 5px; border-radius: 3px; background-color: var(--primary-color);"></span>관계돋움</div>
+                            <div style="display: flex; align-items: center; font-size: 0.9rem;"><span style="width: 15px; height: 15px; margin-right: 5px; border-radius: 3px; background-color: var(--accent-color);"></span>긴급심리지원</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-container">
+                    <h2>맞춤형 프로그램 지원</h2>
+                     <ul>
+                        <li><strong>공통 지원:</strong> 모든 대상 학급에 기본 관계 형성 프로그램(<strong>'나, 너 우리' 2차시</strong>)을 공통 지원함</li>
+                        <li><strong>집중 지원:</strong> 심층 진단 결과에 따라 A, B, C반에 <strong>'관계돋움' 프로그램을 14~16차시</strong> 차등 지원함</li>
+                        <li><strong>긴급 개입:</strong> 위기 상황이 발생한 C반과 D반에는 <strong>긴급 심리지원 프로그램을 투입</strong>하여 즉각 대응함</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section id="s5" class="slide content-section">
+            <div class="slide-content">
+                <div class="visual-container">
+                    <div class="icon-display"><i class="fa-solid fa-seedling" style="color: var(--secondary-color);"></i></div>
+                </div>
+                <div class="text-container">
+                    <h2>프로그램 효과: 긍정적 변화</h2>
+                    <ul>
+                        <li><strong>관계 형성:</strong> 상호작용이 없던 학생들이 놀이를 통해 <strong>함께 협력하고 공간을 연결</strong>하는 모습으로 변화함 (A반)</li>
+                        <li><strong>갈등 조율:</strong> 학생들이 치료사 개입 없이 <strong>스스로 갈등을 조율</strong>하고 해결하려는 시도가 증가함 (B반)</li>
+                        <li><strong>존중 문화 형성:</strong> '타인 평가 금지' 규칙이 정착되며 조롱 대신 <strong>상호 존중과 경청의 문화</strong>가 자리잡음 (C반)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- S6: 교원/학생 만족도 비교 -->
+        <section id="s6" class="slide content-section">
+            <div class="slide-content">
+                <div class="visual-container">
+                    <div class="bar-chart comparison-chart">
+                        <div class="chart-title">영역별 만족도 비교 (교원 vs 학생)</div>
+                        <div class="bar-item">
+                            <div class="bar-label-group">프로그램 만족도</div>
+                            <div class="bar-sub-item"><div class="bar-sub-label">교원</div><div class="bar-wrapper"><div class="bar" style="width: 95.6%; background-color: var(--teacher-color);">4.78점</div></div></div>
+                            <div class="bar-sub-item"><div class="bar-sub-label">학생</div><div class="bar-wrapper"><div class="bar" style="width: 86.4%; background-color: var(--student-color);">4.32점</div></div></div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label-group">자기이해 및 감정조절</div>
+                            <div class="bar-sub-item"><div class="bar-sub-label">교원</div><div class="bar-wrapper"><div class="bar" style="width: 93.4%; background-color: var(--teacher-color);">4.67점</div></div></div>
+                            <div class="bar-sub-item"><div class="bar-sub-label">학생</div><div class="bar-wrapper"><div class="bar" style="width: 82.4%; background-color: var(--student-color);">4.12점</div></div></div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label-group">학급 문화</div>
+                            <div class="bar-sub-item"><div class="bar-sub-label">교원</div><div class="bar-wrapper"><div class="bar" style="width: 93.4%; background-color: var(--teacher-color);">4.67점</div></div></div>
+                            <div class="bar-sub-item"><div class="bar-sub-label">학생</div><div class="bar-wrapper"><div class="bar" style="width: 80%; background-color: var(--student-color);">4.00점</div></div></div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar-label-group">관계기술 및 소통</div>
+                            <div class="bar-sub-item"><div class="bar-sub-label">교원</div><div class="bar-wrapper"><div class="bar" style="width: 90%; background-color: var(--teacher-color);">4.50점</div></div></div>
+                            <div class="bar-sub-item"><div class="bar-sub-label">학생</div><div class="bar-wrapper"><div class="bar" style="width: 82.8%; background-color: var(--student-color);">4.14점</div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-container">
+                    <h2>만족도 비교 (교원/학생)</h2>
+                    <ul>
+                        <li><strong>인식의 차이:</strong> 모든 영역에서 <strong>교원의 만족도가 학생보다 일관되게 높게</strong> 나타나, 프로그램 효과에 대한 기대치와 체감 수준에 차이가 있음을 보여줍니다.</li>
+                        <li><strong>가장 큰 격차:</strong> 특히 <strong>'학급 문화'</strong> 영역에서 점수 차이(0.67점)가 가장 커, 교사들이 느끼는 긍정적 변화를 학생들이 동일한 수준으로 체감하지는 못하고 있음을 시사합니다.</li>
+                        <li><strong>시사점:</strong> 학생들의 실제적인 변화를 이끌어내기 위해서는 교사의 관점뿐만 아니라 <strong>학생의 눈높이에서 경험을 이해하고 소통</strong>하려는 노력이 더욱 중요합니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- S7: 학생 항목별 만족도 (신규) -->
+        <section id="s7" class="slide content-section">
+            <div class="slide-content">
+                <div class="visual-container">
+                    <div class="bar-chart">
+                        <div class="chart-title">학생 응답 항목별 평균 점수 (5점 만점)</div>
+                        <div class="bar-item"><div class="bar-label">긍정적 말 사용</div><div class="bar-wrapper"><div class="bar" style="width: 87.4%; background-color: #d53e4f;">4.37점</div></div></div>
+                        <div class="bar-item"><div class="bar-label">프로그램 추천 의사</div><div class="bar-wrapper"><div class="bar" style="width: 86.4%; background-color: #f46d43;">4.32점</div></div></div>
+                        <div class="bar-item"><div class="bar-label">감정 참기 노력</div><div class="bar-wrapper"><div class="bar" style="width: 86.2%; background-color: #fdae61;">4.31점</div></div></div>
+                        <div class="bar-item"><div class="bar-label">감정 성찰</div><div class="bar-wrapper"><div class="bar" style="width: 83.6%; background-color: #fee08b;">4.18점</div></div></div>
+                        <div class="bar-item"><div class="bar-label">역지사지</div><div class="bar-wrapper"><div class="bar" style="width: 81.2%; background-color: #e6f598;">4.06점</div></div></div>
+                        <div class="bar-item"><div class="bar-label">대화로 문제 해결</div><div class="bar-wrapper"><div class="bar" style="width: 80%; background-color: #abdda4;">4.00점</div></div></div>
+                        <div class="bar-item"><div class="bar-label">학급 긍정 분위기</div><div class="bar-wrapper"><div class="bar" style="width: 80%; background-color: #66c2a5;">4.00점</div></div></div>
+                        <div class="bar-item"><div class="bar-label">감정 표현 편안함</div><div class="bar-wrapper"><div class="bar" style="width: 77.8%; background-color: #3288bd;">3.89점</div></div></div>
+                    </div>
+                </div>
+                <div class="text-container">
+                    <h2>학생 항목별 만족도</h2>
+                    <ul>
+                        <li><strong>가장 긍정적 변화:</strong> 학생들은 '긍정적 말 사용'(4.37점), '프로그램 추천 의사'(4.32점) 등 <strong>언어 습관과 프로그램 자체의 유익함</strong>에 가장 크게 공감했습니다.</li>
+                        <li><strong>내면적 성장:</strong> '감정 참기 노력', '감정 성찰', '역지사지' 등 <strong>자기 조절 및 타인 이해와 관련된 항목들</strong>이 높은 점수를 기록하며 내면의 성장을 보여주었습니다.</li>
+                        <li><strong>개선 필요 영역:</strong> 반면, '감정 표현의 편안함'(3.89점)이 가장 낮게 나타나, 학생들이 <strong>자신의 속마음을 안전하게 표현하는 환경 조성</strong>이 여전히 중요한 과제임을 시사합니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- s8, s9: ID 업데이트 -->
+        <section id="s8" class="slide content-section">
+            <div class="slide-content">
+                <div class="visual-container">
+                    <div class="icon-display"><i class="fa-solid fa-lightbulb"></i></div>
+                </div>
+                <div class="text-container">
+                    <h2>2학기 주요 개선 과제</h2>
+                    <ul>
+                        <li><strong>선제적 지원:</strong> 남은 예산을 활용하여 식별된 <strong>위기 학급에 대한 선제적, 집중적 지원</strong>을 즉시 실시함</li>
+                        <li><strong>교원 역량 강화:</strong> 생활교육 및 심리상담 <strong>전문가 초빙 연수</strong>를 통해 교원의 위기대응 역량 강화 필요함</li>
+                        <li><strong>에듀테크 활용:</strong> <strong>'AI 마음일기'</strong> 등 현장에서 효과가 검증된 에듀테크 프로그램을 적극 도입하여 활용함</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section id="s9" class="slide content-section">
+            <div class="slide-content">
+                 <div class="visual-container">
+                     <div class="quote-display">
+                         <p>"학생들은 다양한 신체 활동을 통해 자신의 감정과 욕구를 표현하고, 또래와의 관계를 확장하는 변화를 보였습니다. 이는 정서적 안정과 관계 회복의 중요한 기반이 될 것입니다."</p>
+                         <footer>- 관계돋움 프로그램 종합 소견 中</footer>
+                       </div>
+                 </div>
+                <div class="text-container">
+                    <h2>종합 결론 및 제언</h2>
+                    <ul>
+                        <li><strong>긍정적 성과:</strong> 프로그램을 통해 학생들의 <strong>긍정적 관계 형성</strong>과 심리적 안정의 기반을 성공적으로 마련함</li>
+                        <li><strong>향후 과제:</strong> 단기 개입을 넘어 <strong>담임-상담사-가정의 유기적 협력 지도</strong> 체계 구축이 시급함</li>
+                        <li><strong>핵심 방향:</strong> 데이터 기반의 <strong>선제적 위기 지원</strong>과 교원의 <strong>전문성 강화</strong>를 동시에 추진하는 것이 중요함</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.sidebar-nav a');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault(); 
+
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+
+                    const targetId = e.currentTarget.getAttribute('href');
+                    
+                    contentSections.forEach(section => {
+                        section.classList.remove('is-active');
+                    });
+                    
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        targetSection.classList.add('is-active');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
