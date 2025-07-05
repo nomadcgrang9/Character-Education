@@ -62,7 +62,8 @@
         }
 
         .sidebar-nav a {
-            display: block;
+            display: flex; /* 텍스트 정렬을 위해 flex 사용 */
+            align-items: center;
             padding: 0.8rem 1rem;
             color: var(--text-color);
             text-decoration: none;
@@ -72,7 +73,6 @@
             transition: background-color 0.2s, color 0.2s;
             cursor: pointer;
         }
-
         .sidebar-nav a:hover {
             background-color: rgba(138, 43, 226, 0.1);
         }
@@ -83,6 +83,52 @@
             font-weight: 600;
         }
         
+        /* 위키트리(토글) 스타일 */
+        .toggle-header {
+            font-weight: bold; /* 상위 토글임을 나타내기 위해 굵게 */
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+            margin-bottom: 0.5rem;
+        }
+        .toggle-header:hover {
+             background-color: rgba(138, 43, 226, 0.05);
+        }
+        .nested-list {
+            list-style: none;
+            padding-left: 30px; /* 들여쓰기 강화 */
+            margin-top: 0;
+            display: none;
+        }
+        .toggle-item.is-open .nested-list {
+            display: block;
+        }
+
+        /* 펼쳐진 상위 토글 헤더 스타일 */
+        .toggle-item.is-open > .toggle-header {
+            background-color: rgba(138, 43, 226, 0.1); /* 펼쳐졌을 때 배경색 변경 */
+            color: var(--primary-color); /* 텍스트 색상 유지 또는 변경 */
+        }
+
+        /* 하위 토글 내의 링크 스타일 */
+        .nested-list a {
+            font-size: 0.95rem; /* 약간 작은 글씨 */
+            color: #4a5568; /* 약간 연한 색상 */
+            padding: 0.6rem 1rem; /* 패딩 조정 */
+            font-weight: 500; /* 하위 링크는 기본 굵기로 */
+        }
+        .nested-list a:hover {
+            background-color: rgba(138, 43, 226, 0.05); /* 하위 링크 호버 효과 */
+        }
+        .nested-list a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+
         /* --- 메인 콘텐츠 영역 --- */
         main {
             margin-left: var(--sidebar-width);
@@ -97,7 +143,7 @@
             align-items: center;
             justify-content: center;
             height: 100%;
-            padding: 2rem; /* 패딩 조정 */
+            padding: 2rem;
             box-sizing: border-box;
             animation: fadeIn 0.5s ease-in-out;
         }
@@ -113,10 +159,10 @@
 
         .slide-content {
             display: flex;
-            align-items: center; /* 컨텐츠 수직 중앙 정렬 */
+            align-items: center;
             justify-content: space-between;
             width: 100%;
-            max-width: 1200px; /* 최대 너비 확장 */
+            max-width: 1200px;
             gap: 3rem;
         }
         
@@ -129,7 +175,7 @@
         h2 { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 2rem; padding-bottom: 0.5rem; border-bottom: 3px solid var(--secondary-color); display: inline-block; }
         ul { list-style: none; padding: 0; }
         li { 
-            font-size: 1.15rem; /* 폰트 크기 미세 조정 */
+            font-size: 1.15rem;
             line-height: 1.8; 
             margin-bottom: 1rem; 
             padding-left: 0; 
@@ -144,7 +190,6 @@
         .bar { height: 100%; border-radius: 4px; color: white; text-align: right; padding-right: 8px; box-sizing: border-box; line-height: 25px; font-size: 0.85rem; animation: slideIn 1s ease-out; white-space: nowrap; font-weight: 500;}
         @keyframes slideIn { from { width: 0; } }
         
-        /* 비교 차트 스타일 */
         .comparison-chart .bar-item { flex-direction: column; align-items: stretch; margin-bottom: 1.5rem; }
         .comparison-chart .bar-label-group { font-weight: bold; margin-bottom: 0.5rem; text-align: left; font-size: 1rem; }
         .comparison-chart .bar-sub-item { display: flex; align-items: center; margin-bottom: 0.5rem; }
@@ -158,6 +203,14 @@
         .hero { text-align: center; }
         .hero h1 { font-size: 3.5rem; color: var(--primary-color); margin-bottom: 1rem; font-weight: 700; line-height: 1.2; }
         .hero p { font-size: 1.5rem; color: var(--text-color); max-width: 600px; margin: 0 auto; }
+
+        /* 이미지 반응형 스타일 추가 */
+        .responsive-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
 
         @media (max-width: 1024px) {
             .sidebar { display: none; }
@@ -174,27 +227,82 @@
         <div class="sidebar-header">목차</div>
         <div class="sidebar-nav">
             <ul>
-                <li><a href="#top" class="active">생활인성부</a></li>
-                <li><a href="#s1">학교폭력 발생현황</a></li>
-                <li><a href="#s2">학교폭력 유형분석</a></li>
-                <li><a href="#s3">사전진단-너나우리 프로그램</a></li>
-                <li><a href="#s4">사후지원-관계돋움 프로그램</a></li>
-                <li><a href="#s5">관계돋움-총평</a></li>
-                <li><a href="#s6">관계돋움-평균 만족도</a></li>
-                <li><a href="#s7">관계돋움-항목별 만족도</a></li>
-                <li><a href="#s8">관계돋움-개선과제</a></li>
-                <li><a href="#s9">종합결론 및 제언</a></li>
+                <!-- '타이틀' 쪽 버튼 제거됨 -->
+                
+                <li class="toggle-item">
+                    <a href="#s1" class="toggle-header">
+                        <span>현황분석</span>
+                    </a>
+                    <ul class="nested-list">
+                        <li><a href="#s1">학교폭력 발생빈도</a></li>
+                        <li><a href="#s2">학교폭력 발생유형</a></li>
+                        <li><a href="#s3">너나우리 사전진단</a></li>
+                    </ul>
+                </li>
+
+                <li class="toggle-item">
+                    <a href="#s4" class="toggle-header">
+                        <span>프로그램 운영결과</span>
+                    </a>
+                    <ul class="nested-list">
+                        <li><a href="#s4">관계돋움 프로그램</a></li>
+                        <li><a href="#s5">관계돋움 평균만족도</a></li>
+                        <li><a href="#s6">관계돋움 항목만족도</a></li>
+                        <li><a href="#s7">관계돋움 총평</a></li>
+                    </ul>
+                </li>
+
+                <li class="toggle-item">
+                    <a href="#s8" class="toggle-header">
+                        <span>종합제언</span>
+                    </a>
+                    <ul class="nested-list">
+                        <li class="toggle-item"> <!-- '개선과제' 토글 -->
+                            <a href="#s8" class="toggle-header"> 
+                                <span>개선과제</span>
+                            </a>
+                            <ul class="nested-list">
+                                <li class="toggle-item"> <!-- 선제적 지원 토글 -->
+                                    <a href="#s10" class="toggle-header"> 
+                                        <span>선제적 지원</span>
+                                    </a>
+                                    <ul class="nested-list">
+                                        <li><a href="#s10-1">예산 현황</a></li>
+                                    </ul>
+                                </li>
+                                <li class="toggle-item"> <!-- AI 마음일기 토글 -->
+                                    <a href="#s11" class="toggle-header"> 
+                                        <span>AI 마음일기</span>
+                                    </a>
+                                    <ul class="nested-list">
+                                        <li><a href="#s11-1">일기 관리</a></li>
+                                        <li><a href="#s11-2">대시보드</a></li>
+                                        <li><a href="#s11-3">일기 상세</a></li>
+                                        <li><a href="#s11-4">감정 달력</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="toggle-item"> <!-- '종합결론' 토글 (개선과제와 동등한 레벨) -->
+                            <a href="#s9" class="toggle-header"> 
+                                <span>종합결론</span>
+                            </a>
+                            <ul class="nested-list">
+                                <!-- 종합결론 하위에 추가될 내용이 있다면 여기에 추가 -->
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </nav>
 
     <main>
         <section id="top" class="hero content-section is-active">
-              <h1><strong>2025년 1학기</strong><br>성남화랑 생활인성교육 토의</h1>
-              <p>증거기반 분석으로 2학기 학생생활교육 지원 방향 모색</p>
+             <h1><strong>2025년 1학기</strong><br>성남화랑 생활인성교육 토의</h1>
+             <p>증거기반 분석으로 2학기 학생생활교육 지원 방향 모색</p>
         </section>
 
-        <!-- s1 ~ s5 sections are the same as before -->
         <section id="s1" class="slide content-section">
             <div class="slide-content">
                 <div class="visual-container">
@@ -204,7 +312,7 @@
                          <div class="bar-item"><div class="bar-label">2023년</div><div class="bar-wrapper"><div class="bar" style="width: 58.3%; background-color: #9d5de8;">7건</div></div></div>
                          <div class="bar-item"><div class="bar-label">2024년</div><div class="bar-wrapper"><div class="bar" style="width: 33.3%; background-color: #b08ef0;">4건</div></div></div>
                          <div class="bar-item"><div class="bar-label">2025년</div><div class="bar-wrapper"><div class="bar" style="width: 8.3%; background-color: #c4bff5;">1건</div></div></div>
-                    </div>
+                     </div>
                 </div>
                 <div class="text-container">
                     <h2>학교폭력 발생 현황</h2>
@@ -220,20 +328,20 @@
              <div class="slide-content">
                 <div class="visual-container">
                    <div class="bar-chart">
-                        <div class="chart-title">폭력 특성 비교 분석</div>
-                        <div class="bar-item"><div class="bar-label">우발적</div><div class="bar-wrapper"><div class="bar" style="width: 80%; background-color: #ff69b4;">13건</div></div></div>
-                        <div class="bar-item"><div class="bar-label">계획적</div><div class="bar-wrapper"><div class="bar" style="width: 62%; background-color: #ff85c6;">10건</div></div></div>
-                        <hr style="margin: 2rem 0; border-color: var(--border-color);">
-                        <div class="bar-item"><div class="bar-label">개인 폭력</div><div class="bar-wrapper"><div class="bar" style="width: 100%; background-color: var(--secondary-color);">16건</div></div></div>
-                        <div class="bar-item"><div class="bar-label">집단 폭력</div><div class="bar-wrapper"><div class="bar" style="width: 43%; background-color: #ff85c6;">7건</div></div></div>
-                    </div>
+                         <div class="chart-title">폭력 특성 비교 분석</div>
+                         <div class="bar-item"><div class="bar-label">우발적</div><div class="bar-wrapper"><div class="bar" style="width: 80%; background-color: #ff69b4;">13건</div></div></div>
+                         <div class="bar-item"><div class="bar-label">계획적</div><div class="bar-wrapper"><div class="bar" style="width: 62%; background-color: #ff85c6;">10건</div></div></div>
+                         <hr style="margin: 2rem 0; border-color: var(--border-color);">
+                         <div class="bar-item"><div class="bar-label">개인 폭력</div><div class="bar-wrapper"><div class="bar" style="width: 100%; background-color: var(--secondary-color);">16건</div></div></div>
+                         <div class="bar-item"><div class="bar-label">집단 폭력</div><div class="bar-wrapper"><div class="bar" style="width: 43%; background-color: #ff85c6;">7건</div></div></div>
+                   </div>
                 </div>
                 <div class="text-container">
                     <h2>폭력 유형 심층 분석</h2>
                     <ul>
                         <li><strong>사건 특성:</strong> <strong>우발적 사건(13건)</strong>이 계획적 사건(10건)보다 다소 많게 발생함</li>
                         <li><strong>가해 형태:</strong> <strong>개인 간 폭력(16건)</strong>이 집단 폭력(7건)보다 2배 이상 많아, 관계 중심의 개입이 중요함</li>
-                        <li><strong>발생 장소:</strong> <strong>학교 밖(12건)</strong>이 학교 안(10건)보다 많아, 교외 생활 지도의 중요성 부각됨</li>
+                        <li><strong>발생 장소:</b> <strong>학교 밖(12건)</strong>이 학교 안(10건)보다 많아, 교외 생활 지도의 중요성 부각됨</li>
                     </ul>
                 </div>
             </div>
@@ -244,7 +352,7 @@
                     <div class="icon-display"><i class="fa-solid fa-triangle-exclamation"></i></div>
                 </div>
                 <div class="text-container">
-                    <h2>사전 진단: 주요 위기 학급</h2>
+                    <h2>너나우리 사전진단</h2>
                     <ul>
                         <li><strong>정서적 단절:</strong> 6학년 일부 학급에서 하위 그룹 간 <strong>구조적 분리 및 응집력 저하</strong> 현상 발견됨</li>
                         <li><strong>관계 미숙:</strong> 저학년(3-4학년) 중심의 <strong>사회성 미성숙 및 자기조절 부족</strong>으로 인한 잦은 갈등 발생</li>
@@ -272,7 +380,7 @@
                     </div>
                 </div>
                 <div class="text-container">
-                    <h2>맞춤형 프로그램 지원</h2>
+                    <h2>관계돋움 프로그램</h2>
                      <ul>
                         <li><strong>공통 지원:</strong> 모든 대상 학급에 기본 관계 형성 프로그램(<strong>'나, 너 우리' 2차시</strong>)을 공통 지원함</li>
                         <li><strong>집중 지원:</strong> 심층 진단 결과에 따라 A, B, C반에 <strong>'관계돋움' 프로그램을 14~16차시</strong> 차등 지원함</li>
@@ -281,24 +389,8 @@
                 </div>
             </div>
         </section>
+        
         <section id="s5" class="slide content-section">
-            <div class="slide-content">
-                <div class="visual-container">
-                    <div class="icon-display"><i class="fa-solid fa-seedling" style="color: var(--secondary-color);"></i></div>
-                </div>
-                <div class="text-container">
-                    <h2>프로그램 효과: 긍정적 변화</h2>
-                    <ul>
-                        <li><strong>관계 형성:</strong> 상호작용이 없던 학생들이 놀이를 통해 <strong>함께 협력하고 공간을 연결</strong>하는 모습으로 변화함 (A반)</li>
-                        <li><strong>갈등 조율:</strong> 학생들이 치료사 개입 없이 <strong>스스로 갈등을 조율</strong>하고 해결하려는 시도가 증가함 (B반)</li>
-                        <li><strong>존중 문화 형성:</strong> '타인 평가 금지' 규칙이 정착되며 조롱 대신 <strong>상호 존중과 경청의 문화</strong>가 자리잡음 (C반)</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- S6: 교원/학생 만족도 비교 -->
-        <section id="s6" class="slide content-section">
             <div class="slide-content">
                 <div class="visual-container">
                     <div class="bar-chart comparison-chart">
@@ -326,7 +418,7 @@
                     </div>
                 </div>
                 <div class="text-container">
-                    <h2>만족도 비교 (교원/학생)</h2>
+                    <h2>평균 만족도</h2>
                     <ul>
                         <li><strong>인식의 차이:</strong> 모든 영역에서 <strong>교원의 만족도가 학생보다 일관되게 높게</strong> 나타나, 프로그램 효과에 대한 기대치와 체감 수준에 차이가 있음을 보여줍니다.</li>
                         <li><strong>가장 큰 격차:</strong> 특히 <strong>'학급 문화'</strong> 영역에서 점수 차이(0.67점)가 가장 커, 교사들이 느끼는 긍정적 변화를 학생들이 동일한 수준으로 체감하지는 못하고 있음을 시사합니다.</li>
@@ -336,8 +428,7 @@
             </div>
         </section>
 
-        <!-- S7: 학생 항목별 만족도 (신규) -->
-        <section id="s7" class="slide content-section">
+        <section id="s6" class="slide content-section">
             <div class="slide-content">
                 <div class="visual-container">
                     <div class="bar-chart">
@@ -353,7 +444,7 @@
                     </div>
                 </div>
                 <div class="text-container">
-                    <h2>학생 항목별 만족도</h2>
+                    <h2>항목별 만족도</h2>
                     <ul>
                         <li><strong>가장 긍정적 변화:</strong> 학생들은 '긍정적 말 사용'(4.37점), '프로그램 추천 의사'(4.32점) 등 <strong>언어 습관과 프로그램 자체의 유익함</strong>에 가장 크게 공감했습니다.</li>
                         <li><strong>내면적 성장:</strong> '감정 참기 노력', '감정 성찰', '역지사지' 등 <strong>자기 조절 및 타인 이해와 관련된 항목들</strong>이 높은 점수를 기록하며 내면의 성장을 보여주었습니다.</li>
@@ -363,14 +454,33 @@
             </div>
         </section>
 
-        <!-- s8, s9: ID 업데이트 -->
+        <section id="s7" class="slide content-section">
+            <div class="slide-content">
+                <div class="visual-container">
+                     <div class="quote-display">
+                         <p>"집단 내에서 영향력 있는 학생들 역시 갈등을 부추기는 행동보다, 상황을 통제하거나 해결하려는 
+태도를 부분적으로 보이기 시작했으며, 스스로 조율하는 행동이 증가하는 긍정적인 흐름이 관찰되었습니다."</p>
+                         <footer>- 관계돋움 프로그램 종합 소견 中</footer>
+                     </div>
+                </div>
+                <div class="text-container">
+                    <h2>총평</h2>
+                    <ul>
+                        <li><strong>관계 형성:</strong> 상호작용이 없던 학생들이 놀이를 통해 <strong>함께 협력하고 공간을 연결</strong>하는 모습으로 변화함 (A반)</li>
+                        <li><strong>갈등 조율:</strong> 학생들이 치료사 개입 없이 <strong>스스로 갈등을 조율</strong>하고 해결하려는 시도가 증가함 (B반)</li>
+                        <li><strong>존중 문화 형성:</strong> '타인 평가 금지' 규칙이 정착되며 조롱 대신 <strong>상호 존중과 경청의 문화</strong>가 자리잡음 (C반)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
         <section id="s8" class="slide content-section">
             <div class="slide-content">
                 <div class="visual-container">
                     <div class="icon-display"><i class="fa-solid fa-lightbulb"></i></div>
                 </div>
                 <div class="text-container">
-                    <h2>2학기 주요 개선 과제</h2>
+                    <h2>개선과제</h2>
                     <ul>
                         <li><strong>선제적 지원:</strong> 남은 예산을 활용하여 식별된 <strong>위기 학급에 대한 선제적, 집중적 지원</strong>을 즉시 실시함</li>
                         <li><strong>교원 역량 강화:</strong> 생활교육 및 심리상담 <strong>전문가 초빙 연수</strong>를 통해 교원의 위기대응 역량 강화 필요함</li>
@@ -379,13 +489,134 @@
                 </div>
             </div>
         </section>
+
+        <!-- 새로운 섹션: 선제적 지원 (개요) -->
+        <section id="s10" class="slide content-section">
+            <div class="slide-content">
+                <div class="visual-container">
+                    <div class="icon-display"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                </div>
+                <div class="text-container">
+                    <h2>선제적 지원</h2>
+                    <ul>
+                        <li><strong>위기 학급 식별 및 즉각 개입:</strong> 사전 진단 결과에 따라 심리적 해체 위험이 있는 학급에 대한 선제적인 지원 프로그램을 즉시 시행합니다.</li>
+                        <li><strong>맞춤형 프로그램 개발:</strong> 각 학급의 특성과 필요에 맞는 개별화된 지원 프로그램을 개발하고 적용하여 효과를 극대화합니다.</li>
+                        <li><strong>지속적인 모니터링:</strong> 지원 프로그램 진행 중에도 학생들의 변화를 지속적으로 모니터링하고, 필요에 따라 추가적인 개입을 제공합니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 선제적 지원 이미지 섹션 -->
+        <section id="s10-1" class="slide content-section">
+            <div class="slide-content">
+                <div class="visual-container">
+                    <img src="uploaded:선제적 지원 01.png-9930e1ce-044c-447d-bf28-f40f748f2489" alt="선제적 지원 예산 현황" class="responsive-image">
+                </div>
+                <div class="text-container">
+                    <h2>예산 현황</h2>
+                    <ul>
+                        <li><strong>예산 활용:</strong> 남은 예산을 활용하여 식별된 위기 학급에 대한 선제적, 집중적 지원을 즉시 실시할 수 있습니다.</li>
+                        <li><strong>세부 예산 내역:</strong> 학교폭력 예방 지원을 위한 교육 운영비, 운영 수당 등이 포함됩니다.</li>
+                        <li><strong>투명한 집행:</strong> 예산은 투명하게 집행되어 학생들의 생활 교육에 최대한의 효과를 낼 수 있도록 관리됩니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 새로운 섹션: AI 마음일기 (개요) -->
+        <section id="s11" class="slide content-section">
+            <div class="slide-content">
+                <div class="visual-container">
+                    <div class="icon-display"><i class="fa-solid fa-robot"></i></div>
+                </div>
+                <div class="text-container">
+                    <h2>AI 마음일기</h2>
+                    <ul>
+                        <li><strong>감정 분석 및 피드백:</strong> AI 기반의 마음일기 앱을 통해 학생들이 자신의 감정을 기록하고, AI가 이를 분석하여 맞춤형 피드백을 제공합니다.</li>
+                        <li><strong>정서적 자기 이해 증진:</strong> 학생들이 자신의 감정을 객관적으로 이해하고 조절하는 능력을 향상시키며, 필요시 전문가 상담으로 연계합니다.</li>
+                        <li><strong>데이터 기반 심리 지원:</strong> 축적된 데이터를 활용하여 학생들의 정서 상태 변화를 파악하고, 이를 바탕으로 개인별 또는 학급별 심리 지원 계획을 수립합니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI 마음일기 이미지 섹션 1 -->
+        <section id="s11-1" class="slide content-section">
+            <div class="slide-content">
+                <div class="visual-container">
+                    <img src="uploaded:AI마음일기 01.png-bf0f4325-aa0d-4ee0-8e8c-b05402863b17" alt="AI 마음일기 일기 관리 화면" class="responsive-image">
+                </div>
+                <div class="text-container">
+                    <h2>일기 관리</h2>
+                    <ul>
+                        <li><strong>직관적인 일기 작성:</strong> 학생들이 쉽고 편안하게 자신의 감정과 생각을 기록할 수 있는 인터페이스를 제공합니다.</li>
+                        <li><strong>감정 상태 시각화:</strong> 작성된 일기를 통해 감정 상태의 변화를 한눈에 파악할 수 있도록 시각적인 지표를 제공합니다.</li>
+                        <li><strong>개인별 맞춤 관리:</strong> 각 학생의 일기 내용을 기반으로 개별적인 정서 관리 및 피드백이 가능합니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI 마음일기 이미지 섹션 2 -->
+        <section id="s11-2" class="slide content-section">
+            <div class="slide-content">
+                <div class="visual-container">
+                    <img src="uploaded:AI마음일기 02.png-6497830a-8a72-4401-8130-aaefae82bacb" alt="AI 마음일기 대시보드 화면" class="responsive-image">
+                </div>
+                <div class="text-container">
+                    <h2>대시보드</h2>
+                    <ul>
+                        <li><strong>종합적인 감정 현황:</strong> 학생들의 전반적인 감정 상태를 대시보드 형태로 시각화하여 보여줍니다.</li>
+                        <li><strong>감정 분포 분석:</strong> 긍정적/부정적 감정의 분포를 파악하고, 특정 감정의 빈도를 확인할 수 있습니다.</li>
+                        <li><strong>키워드 클라우드:</strong> 학생들이 자주 사용하는 감정 관련 키워드를 분석하여 주요 정서적 이슈를 파악합니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI 마음일기 이미지 섹션 3 -->
+        <section id="s11-3" class="slide content-section">
+            <div class="slide-content">
+                <div class="visual-container">
+                    <img src="uploaded:AI마음일기 03.png-397e2133-59b9-428e-88e2-dbe3fc7eb52" alt="AI 마음일기 일기 상세 화면" class="responsive-image">
+                </div>
+                <div class="text-container">
+                    <h2>일기 상세</h2>
+                    <ul>
+                        <li><strong>개별 일기 내용 확인:</strong> 각 일기의 상세 내용을 확인하여 학생의 구체적인 감정 변화와 맥락을 이해할 수 있습니다.</li>
+                        <li><strong>댓글 및 피드백 기록:</strong> 일기에 대한 교사 또는 상담사의 댓글과 피드백 기록을 관리할 수 있습니다.</li>
+                        <li><strong>정서 변화 추적:</strong> 시간 경과에 따른 학생의 정서 변화를 면밀히 추적하고 개입 시점을 판단하는 데 활용됩니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI 마음일기 이미지 섹션 4 -->
+        <section id="s11-4" class="slide content-section">
+            <div class="slide-content">
+                <div class="visual-container">
+                    <img src="uploaded:AI마음일기 04.png-dd8f2dc6-bbc3-4d5c-9adb-43125067814b" alt="AI 마음일기 감정 달력 화면" class="responsive-image">
+                </div>
+                <div class="text-container">
+                    <h2>감정 달력</h2>
+                    <ul>
+                        <li><strong>월별 감정 흐름 파악:</strong> 달력 형태로 감정 변화를 시각화하여 월별 정서 상태의 패턴을 쉽게 파악할 수 있습니다.</li>
+                        <li><strong>특정 날짜 감정 확인:</strong> 특정 날짜를 클릭하여 해당 날짜의 감정 기록과 일기 내용을 빠르게 확인할 수 있습니다.</li>
+                        <li><strong>정서적 개입 계획 수립:</strong> 감정 달력 데이터를 기반으로 학생의 정서적 안정화를 위한 장기적인 개입을 수립합니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
         <section id="s9" class="slide content-section">
             <div class="slide-content">
                  <div class="visual-container">
                      <div class="quote-display">
-                         <p>"학생들은 다양한 신체 활동을 통해 자신의 감정과 욕구를 표현하고, 또래와의 관계를 확장하는 변화를 보였습니다. 이는 정서적 안정과 관계 회복의 중요한 기반이 될 것입니다."</p>
+                         <p>"집단 내에서 영향력 있는 학생들 역시 갈등을 부추기는 행동보다, 상황을 통제하거나 해결하려는 
+태도를 부분적으로 보이기 시작했으며, 스스로 조율하는 행동이 증가하는 긍정적인 흐름이 관찰되었습니다."</p>
                          <footer>- 관계돋움 프로그램 종합 소견 中</footer>
-                       </div>
+                     </div>
                  </div>
                 <div class="text-container">
                     <h2>종합 결론 및 제언</h2>
@@ -401,25 +632,79 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const navLinks = document.querySelectorAll('.sidebar-nav a');
+            const sidebarNav = document.querySelector('.sidebar-nav');
+            const navLinks = sidebarNav.querySelectorAll('a'); // 모든 <a> 태그 선택
             const contentSections = document.querySelectorAll('.content-section');
+            const allToggleItems = document.querySelectorAll('.toggle-item'); // 모든 토글 아이템 선택
+
+            // 초기 상태 설정: 모든 토글 닫고, 모든 콘텐츠 섹션 숨기기
+            // 작은 지연을 두어 CSS 렌더링과의 충돌 방지 (안정성 향상)
+            setTimeout(() => {
+                allToggleItems.forEach(item => {
+                    item.classList.remove('is-open'); // 모든 토글 닫기
+                });
+                contentSections.forEach(section => {
+                    section.classList.remove('is-active'); // 모든 콘텐츠 섹션 숨기기
+                });
+                // 첫 페이지 (#top) 활성화
+                document.getElementById('top').classList.add('is-active');
+                // 만약 #top이 사이드바 링크에 있다면 active 클래스 추가 (선택 사항)
+                const topLink = sidebarNav.querySelector('a[href="#top"]');
+                if (topLink) {
+                    topLink.classList.add('active');
+                }
+            }, 50); // 50ms 지연
+
 
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
-                    e.preventDefault(); 
+                    e.preventDefault(); // 기본 링크 동작 방지
 
+                    // 모든 링크의 active 클래스 제거 후 클릭된 링크에 active 클래스 추가
                     navLinks.forEach(nav => nav.classList.remove('active'));
                     e.currentTarget.classList.add('active');
 
+                    // 모든 콘텐츠 섹션 숨긴 후 대상 섹션 표시
                     const targetId = e.currentTarget.getAttribute('href');
-                    
                     contentSections.forEach(section => {
                         section.classList.remove('is-active');
                     });
-                    
                     const targetSection = document.querySelector(targetId);
                     if (targetSection) {
                         targetSection.classList.add('is-active');
+                    }
+
+                    const clickedLiParent = e.currentTarget.closest('.toggle-item');
+
+                    // 클릭된 링크가 토글 헤더인 경우 토글 기능 처리
+                    if (e.currentTarget.classList.contains('toggle-header') && clickedLiParent) {
+                        const nestedList = clickedLiParent.querySelector('.nested-list');
+                        if (nestedList) { // 하위 목록이 있는 경우에만 토글
+                            // 현재 클릭된 토글의 is-open 상태를 토글
+                            clickedLiParent.classList.toggle('is-open');
+
+                            // 같은 레벨의 다른 토글 닫기 (누른 것만 열리도록)
+                            const directParentUl = clickedLiParent.parentElement;
+                            if (directParentUl) {
+                                Array.from(directParentUl.children).forEach(siblingLi => {
+                                    // 클릭된 토글이 아니고, 토글 아이템인 경우에만 닫기
+                                    if (siblingLi !== clickedLiParent && siblingLi.classList.contains('toggle-item')) {
+                                        siblingLi.classList.remove('is-open');
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    // 클릭된 하위 링크의 모든 상위 토글들을 열린 상태로 유지
+                    // (클릭된 토글 자체는 위에서 이미 토글되었으므로, 그 상위 부모들만 처리)
+                    let currentAncestor = clickedLiParent ? clickedLiParent.parentElement : null;
+                    while (currentAncestor && currentAncestor.classList.contains('nested-list')) {
+                        const parentToggleItem = currentAncestor.closest('.toggle-item');
+                        if (parentToggleItem) {
+                            parentToggleItem.classList.add('is-open'); // 상위 토글 열기
+                        }
+                        currentAncestor = parentToggleItem ? parentToggleItem.parentElement : null;
                     }
                 });
             });
