@@ -97,13 +97,14 @@
         .toggle-header:hover {
              background-color: rgba(138, 43, 226, 0.05);
         }
+        
         .nested-list {
             list-style: none;
             padding-left: 30px; /* 들여쓰기 강화 */
             margin-top: 0;
             display: none;
         }
-        .toggle-item.is-open .nested-list {
+        .toggle-item.is-open > .nested-list {
             display: block;
         }
 
@@ -156,6 +157,30 @@
         .content-section.is-active {
             display: flex;
         }
+
+        /* 신규: 대표 타이틀 페이지 스타일 */
+        .title-page-wrapper {
+            text-align: center;
+        }
+        .title-page-icon {
+            font-size: 8rem;
+            color: var(--primary-color);
+            margin-bottom: 2.5rem;
+            opacity: 0.7;
+            animation: icon-pop 0.6s ease-out;
+        }
+        @keyframes icon-pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+        .title-page-wrapper h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--text-color);
+            border-bottom: none;
+        }
+
 
         .slide-content {
             display: flex;
@@ -230,7 +255,8 @@
                 <!-- '타이틀' 쪽 버튼 제거됨 -->
                 
                 <li class="toggle-item">
-                    <a href="#s1" class="toggle-header">
+                    <!-- 링크를 대표 페이지 ID로 변경 -->
+                    <a href="#s-analysis" class="toggle-header">
                         <span>현황분석</span>
                     </a>
                     <ul class="nested-list">
@@ -241,7 +267,8 @@
                 </li>
 
                 <li class="toggle-item">
-                    <a href="#s4" class="toggle-header">
+                    <!-- 링크를 대표 페이지 ID로 변경 -->
+                    <a href="#s-program" class="toggle-header">
                         <span>프로그램 운영결과</span>
                     </a>
                     <ul class="nested-list">
@@ -253,7 +280,8 @@
                 </li>
 
                 <li class="toggle-item">
-                    <a href="#s8" class="toggle-header">
+                    <!-- 링크를 대표 페이지 ID로 변경 -->
+                    <a href="#s-suggestion" class="toggle-header">
                         <span>종합제언</span>
                     </a>
                     <ul class="nested-list">
@@ -262,28 +290,29 @@
                                 <span>개선과제</span>
                             </a>
                             <ul class="nested-list">
-                                <li class="toggle-item"> <!-- 선제적 지원 토글 -->
-                                    <a href="#s10" class="toggle-header"> 
-                                        <span>선제적 지원</span>
-                                    </a>
-                                    <ul class="nested-list">
-                                        <li><a href="#s10-1">예산 현황</a></li>
-                                    </ul>
-                                </li>
-                                <li class="toggle-item"> <!-- AI 마음일기 토글 -->
-                                    <a href="#s11" class="toggle-header"> 
-                                        <span>AI 마음일기</span>
-                                    </a>
-                                    <ul class="nested-list">
-                                        <li><a href="#s11-1">일기 관리</a></li>
-                                        <li><a href="#s11-2">대시보드</a></li>
-                                        <li><a href="#s11-3">일기 상세</a></li>
-                                        <li><a href="#s11-4">감정 달력</a></li>
-                                    </ul>
-                                </li>
+                                <!-- 개선과제 하위에 더 이상 다른 토글을 두지 않음 -->
                             </ul>
                         </li>
-                        <li class="toggle-item"> <!-- '종합결론' 토글 (개선과제와 동등한 레벨) -->
+                        <li class="toggle-item"> <!-- 선제적 지원 토글 (종합제언의 직접적인 하위) -->
+                            <a href="#s10" class="toggle-header"> 
+                                <span>선제적 지원</span>
+                            </a>
+                            <ul class="nested-list">
+                                <li><a href="#s10-1">예산 현황</a></li>
+                            </ul>
+                        </li>
+                        <li class="toggle-item"> <!-- AI 마음일기 토글 (종합제언의 직접적인 하위) -->
+                            <a href="#s11" class="toggle-header"> 
+                                <span>AI 마음일기</span>
+                            </a>
+                            <ul class="nested-list">
+                                <li><a href="#s11-1">일기 관리</a></li>
+                                <li><a href="#s11-2">대시보드</a></li>
+                                <li><a href="#s11-3">일기 상세</a></li>
+                                <li><a href="#s11-4">감정 달력</a></li>
+                            </ul>
+                        </li>
+                        <li class="toggle-item"> <!-- '종합결론' 토글 (종합제언의 직접적인 하위) -->
                             <a href="#s9" class="toggle-header"> 
                                 <span>종합결론</span>
                             </a>
@@ -302,6 +331,27 @@
              <h1><strong>2025년 1학기</strong><br>성남화랑 생활인성교육 토의</h1>
              <p>증거기반 분석으로 2학기 학생생활교육 지원 방향 모색</p>
         </section>
+
+        <!-- 신규: 대표 타이틀 페이지들 -->
+        <section id="s-analysis" class="content-section">
+            <div class="title-page-wrapper">
+                <div class="title-page-icon"><i class="fa-solid fa-chart-pie"></i></div>
+                <h1>현황분석</h1>
+            </div>
+        </section>
+        <section id="s-program" class="content-section">
+            <div class="title-page-wrapper">
+                <div class="title-page-icon"><i class="fa-solid fa-people-group"></i></div>
+                <h1>프로그램 운영결과</h1>
+            </div>
+        </section>
+        <section id="s-suggestion" class="content-section">
+            <div class="title-page-wrapper">
+                <div class="title-page-icon"><i class="fa-solid fa-comments"></i></div>
+                <h1>종합제언</h1>
+            </div>
+        </section>
+
 
         <section id="s1" class="slide content-section">
             <div class="slide-content">
@@ -561,7 +611,7 @@
         </section>
 
         <!-- AI 마음일기 이미지 섹션 2 -->
-        <section id="s11-2" class="slide content-section">
+        <section id="s11-2" class="slide content-section"> <!-- class="content-content" -> class="content-section" 오타 수정 -->
             <div class="slide-content">
                 <div class="visual-container">
                     <!-- GitHub Pages 배포용 경로로 변경 -->
@@ -590,7 +640,7 @@
                     <ul>
                         <li><strong>개별 일기 내용 확인:</strong> 각 일기의 상세 내용을 확인하여 학생의 구체적인 감정 변화와 맥락을 이해할 수 있습니다.</li>
                         <li><strong>댓글 및 피드백 기록:</strong> 일기에 대한 교사 또는 상담사의 댓글과 피드백 기록을 관리할 수 있습니다.</li>
-                        <li><strong>정서 변화 추적:</strong> 시간 경과에 따른 학생의 정서 변화를 면밀히 추적하고 개입 시점을 판단하는 데 활용됩니다.</li>
+                        <li><strong>정서 변화 추적:</b> 시간 경과에 따른 학생의 정서 변화를 면밀히 추적하고 개입 시점을 판단하는 데 활용됩니다.</li>
                     </ul>
                 </div>
             </div>
@@ -671,11 +721,11 @@
 
                     // 모든 콘텐츠 섹션 숨긴 후 대상 섹션 표시
                     const targetId = e.currentTarget.getAttribute('href');
-                    contentSections.forEach(section => {
-                        section.classList.remove('is-active');
-                    });
                     const targetSection = document.querySelector(targetId);
                     if (targetSection) {
+                        contentSections.forEach(section => {
+                            section.classList.remove('is-active');
+                        });
                         targetSection.classList.add('is-active');
                     }
 
@@ -685,10 +735,11 @@
                     if (e.currentTarget.classList.contains('toggle-header') && clickedLiParent) {
                         const nestedList = clickedLiParent.querySelector('.nested-list');
                         if (nestedList) { // 하위 목록이 있는 경우에만 토글
-                            // 현재 클릭된 토글의 is-open 상태를 토글
+                            
+                            // 수정된 토글 로직 시작
                             const wasOpen = clickedLiParent.classList.contains('is-open');
 
-                            // 같은 레벨의 다른 토글 닫기 (누른 것만 열리도록)
+                            // 같은 레벨의 다른 토글들은 모두 닫는다.
                             const directParentUl = clickedLiParent.parentElement;
                             if (directParentUl) {
                                 Array.from(directParentUl.children).forEach(siblingLi => {
@@ -699,10 +750,13 @@
                                 });
                             }
                             
-                            // 만약 클릭된 토글이 이전에 닫혀있었다면 열기
-                            if (!wasOpen) {
+                            // 현재 클릭한 토글의 상태를 바꾼다 (열려있었으면 닫고, 닫혀있었으면 연다).
+                            if (wasOpen) {
+                                clickedLiParent.classList.remove('is-open');
+                            } else {
                                 clickedLiParent.classList.add('is-open');
                             }
+                            // 수정된 토글 로직 끝
                         }
                     }
 
@@ -714,7 +768,7 @@
                         if (parentToggleItem) {
                             parentToggleItem.classList.add('is-open'); // 상위 토글 열기
                         }
-                        currentAncestor = parentToggleItem ? parentToggleItem.parentElement : null;
+                        currentAncestor = parentToggleItem ? parentToggleItem.parentElement : null; // 수정: parentAncestor.parentElement -> parentToggleItem.parentElement
                     }
                 });
             });
