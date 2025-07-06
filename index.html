@@ -319,6 +319,34 @@
             opacity: 0.7;
             animation: icon-pop 0.6s ease-out;
         }
+        
+        /* 종합 결론 인용문 스타일 */
+        .quote-display {
+            background-color: #fffafb; /* 연한 핑크 배경 */
+            border-left: 5px solid var(--secondary-color); /* 핑크색 왼쪽 테두리 */
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        .quote-display p {
+            font-size: 1.5rem; /* 글자 크기 증가 */
+            font-weight: 500; /* 약간 굵게 */
+            line-height: 1.7;
+            color: var(--text-color);
+            margin: 0 0 1.5rem 0;
+            text-align: left;
+        }
+
+        .quote-display footer {
+            font-size: 1rem;
+            color: #6b7280;
+            text-align: right;
+            font-style: italic;
+        }
+
 
         @media (max-width: 1024px) {
             .sidebar { display: none; }
