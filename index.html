@@ -233,8 +233,6 @@
         .comparison-chart .bar-sub-item { display: flex; align-items: center; margin-bottom: 0.5rem; }
         .comparison-chart .bar-sub-label { width: 50px; font-size: 0.9rem; color: #555; }
         
-        .icon-display { font-size: 10rem; color: var(--primary-color); opacity: 0.8; }
-        
         .hero { text-align: center; }
         .hero h1 { font-size: 3.5rem; color: var(--primary-color); margin-bottom: 1rem; font-weight: 700; line-height: 1.2; }
         .hero p { font-size: 1.5rem; color: var(--text-color); max-width: 600px; margin: 0 auto; }
@@ -247,7 +245,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
-        /* s7 총평 섹션 전용 스타일 */
+        /* 카드 레이아웃 스타일 */
         .summary-container {
             width: 100%;
             max-width: 1400px;
@@ -423,8 +421,8 @@
 
     <main>
         <section id="top" class="hero content-section is-active">
-             <h1><strong>2025년 1학기</strong><br>성남화랑 생활인성교육 토의</h1>
-             <p>증거기반 분석으로 2학기 학생생활교육 지원 방향 모색</p>
+              <h1><strong>2025년 1학기</strong><br>성남화랑 생활인성교육 토의</h1>
+              <p>증거기반 분석으로 2학기 학생생활교육 지원 방향 모색</p>
         </section>
         
         <!-- 신규 대표 페이지: 생활지도 -->
@@ -492,11 +490,11 @@
             <div class="slide-content">
                 <div class="visual-container">
                      <div class="bar-chart">
-                         <div class="chart-title">연도별 학교폭력 발생 추이 (2022-2025)</div>
-                         <div class="bar-item"><div class="bar-label">2022년</div><div class="bar-wrapper"><div class="bar" style="width: 100%; background-color: #8A2BE2;">12건</div></div></div>
-                         <div class="bar-item"><div class="bar-label">2023년</div><div class="bar-wrapper"><div class="bar" style="width: 58.3%; background-color: #9d5de8;">7건</div></div></div>
-                         <div class="bar-item"><div class="bar-label">2024년</div><div class="bar-wrapper"><div class="bar" style="width: 33.3%; background-color: #b08ef0;">4건</div></div></div>
-                         <div class="bar-item"><div class="bar-label">2025년</div><div class="bar-wrapper"><div class="bar" style="width: 8.3%; background-color: #c4bff5;">1건</div></div></div>
+                          <div class="chart-title">연도별 학교폭력 발생 추이 (2022-2025)</div>
+                          <div class="bar-item"><div class="bar-label">2022년</div><div class="bar-wrapper"><div class="bar" style="width: 100%; background-color: #8A2BE2;">12건</div></div></div>
+                          <div class="bar-item"><div class="bar-label">2023년</div><div class="bar-wrapper"><div class="bar" style="width: 58.3%; background-color: #9d5de8;">7건</div></div></div>
+                          <div class="bar-item"><div class="bar-label">2024년</div><div class="bar-wrapper"><div class="bar" style="width: 33.3%; background-color: #b08ef0;">4건</div></div></div>
+                          <div class="bar-item"><div class="bar-label">2025년</div><div class="bar-wrapper"><div class="bar" style="width: 8.3%; background-color: #c4bff5;">1건</div></div></div>
                      </div>
                 </div>
                 <div class="text-container">
@@ -513,12 +511,12 @@
              <div class="slide-content">
                 <div class="visual-container">
                    <div class="bar-chart">
-                         <div class="chart-title">폭력 특성 비교 분석</div>
-                         <div class="bar-item"><div class="bar-label">우발적</div><div class="bar-wrapper"><div class="bar" style="width: 80%; background-color: #ff69b4;">13건</div></div></div>
-                         <div class="bar-item"><div class="bar-label">계획적</div><div class="bar-wrapper"><div class="bar" style="width: 62%; background-color: #ff85c6;">10건</div></div></div>
-                         <hr style="margin: 2rem 0; border-color: var(--border-color);">
-                         <div class="bar-item"><div class="bar-label">개인 폭력</div><div class="bar-wrapper"><div class="bar" style="width: 100%; background-color: var(--secondary-color);">16건</div></div></div>
-                         <div class="bar-item"><div class="bar-label">집단 폭력</div><div class="bar-wrapper"><div class="bar" style="width: 43%; background-color: #ff85c6;">7건</div></div></div>
+                          <div class="chart-title">폭력 특성 비교 분석</div>
+                          <div class="bar-item"><div class="bar-label">우발적</div><div class="bar-wrapper"><div class="bar" style="width: 80%; background-color: #ff69b4;">13건</div></div></div>
+                          <div class="bar-item"><div class="bar-label">계획적</div><div class="bar-wrapper"><div class="bar" style="width: 62%; background-color: #ff85c6;">10건</div></div></div>
+                          <hr style="margin: 2rem 0; border-color: var(--border-color);">
+                          <div class="bar-item"><div class="bar-label">개인 폭력</div><div class="bar-wrapper"><div class="bar" style="width: 100%; background-color: var(--secondary-color);">16건</div></div></div>
+                          <div class="bar-item"><div class="bar-label">집단 폭력</div><div class="bar-wrapper"><div class="bar" style="width: 43%; background-color: #ff85c6;">7건</div></div></div>
                    </div>
                 </div>
                 <div class="text-container">
@@ -531,21 +529,27 @@
                 </div>
             </div>
         </section>
-        <section id="s3" class="slide content-section">
-            <div class="slide-content">
-                <div class="visual-container">
-                    <div class="icon-display"><i class="fa-solid fa-triangle-exclamation"></i></div>
-                </div>
-                <div class="text-container">
-                    <h2>너나우리 사전진단</h2>
-                    <ul>
-                        <li><strong>정서적 단절:</strong> 6학년 일부 학급에서 하위 그룹 간 <strong>구조적 분리 및 응집력 저하</strong> 현상 발견됨</li>
-                        <li><strong>관계 미숙:</strong> 저학년(3-4학년) 중심의 <strong>사회성 미성숙 및 자기조절 부족</strong>으로 인한 잦은 갈등 발생</li>
-                        <li><strong>붕괴 위험:</strong> 특정 학급은 <strong>집단 붕괴 위험</strong>이 있는 심리적 해체 상태로, 긴급 지원 필요성 확인</li>
-                    </ul>
+        
+        <!-- 1. 너나우리 사전진단 수정 -->
+        <section id="s3" class="content-section">
+            <div class="summary-container">
+                <h2 class="summary-title">너나우리 사전진단</h2>
+                <div class="summary-card-container">
+                    <div class="summary-card">
+                        <div class="summary-card-icon"><i class="fa-solid fa-users-slash"></i></div>
+                        <h3 class="summary-card-title">정서적 단절</h3>
+                        <p class="summary-card-text">6학년 일부 학급에서 하위 그룹 간 구조적 분리 및 응집력 저하 현상이 발견되었습니다.</p>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-card-icon"><i class="fa-solid fa-people-pulling"></i></div>
+                        <h3 class="summary-card-title">관계 미숙</h3>
+                        <p class="summary-card-text">저학년(3-4학년) 중심의 사회성 미성숙 및 자기조절 부족으로 인한 잦은 갈등이 발생하고 있습니다.</p>
+                    </div>
                 </div>
             </div>
         </section>
+        
+        <!-- 2. 관계돋움 프로그램 수정 -->
         <section id="s4" class="slide content-section">
             <div class="slide-content">
                 <div class="visual-container">
@@ -567,10 +571,9 @@
                 <div class="text-container">
                     <h2>관계돋움 프로그램</h2>
                      <ul>
-                        <li><strong>공통 지원:</strong> 모든 대상 학급에 기본 관계 형성 프로그램(<strong>'나, 너 우리' 2차시</strong>)을 공통 지원함</li>
-                        <li><strong>집중 지원:</strong> 심층 진단 결과에 따라 A, B, C반에 <strong>'관계돋움' 프로그램을 14~16차시</strong> 차등 지원함</li>
-                        <li><strong>긴급 개입:</strong> 위기 상황이 발생한 C반과 D반에는 <strong>긴급 심리지원 프로그램을 투입</strong>하여 즉각 대응함</li>
-                    </ul>
+                         <li><strong>공통 지원:</strong> 모든 대상 학급에 기본 관계 형성 프로그램(<strong>'나, 너 우리' 2차시</strong>)을 공통 지원함</li>
+                         <li><strong>집중 지원:</strong> 심층 진단 결과에 따라 A, B, C반에 <strong>'관계돋움' 프로그램을 14~16차시</strong> 차등 지원함</li>
+                     </ul>
                 </div>
             </div>
         </section>
@@ -665,35 +668,50 @@
             </div>
         </section>
 
-        <section id="s8" class="slide content-section">
-            <div class="slide-content">
-                <div class="visual-container">
-                    <div class="icon-display"><i class="fa-solid fa-lightbulb"></i></div>
-                </div>
-                <div class="text-container">
-                    <h2>개선과제</h2>
-                    <ul>
-                        <li><strong>선제적 지원:</strong> 남은 예산을 활용하여 식별된 <strong>위기 학급에 대한 선제적, 집중적 지원</strong>을 즉시 실시함</li>
-                        <li><strong>교원 역량 강화:</strong> 생활교육 및 심리상담 <strong>전문가 초빙 연수</strong>를 통해 교원의 위기대응 역량 강화 필요함</li>
-                        <li><strong>에듀테크 활용:</strong> <strong>'AI 마음일기'</strong> 등 현장에서 효과가 검증된 에듀테크 프로그램을 적극 도입하여 활용함</li>
-                    </ul>
+        <!-- 3. 개선과제 수정 -->
+        <section id="s8" class="content-section">
+            <div class="summary-container">
+                <h2 class="summary-title">개선과제</h2>
+                <div class="summary-card-container">
+                    <div class="summary-card">
+                        <div class="summary-card-icon"><i class="fa-solid fa-hand-holding-medical"></i></div>
+                        <h3 class="summary-card-title">선제적 지원</h3>
+                        <p class="summary-card-text">남은 예산을 활용하여 식별된 위기 학급에 대한 선제적, 집중적 지원을 즉시 실시합니다.</p>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-card-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+                        <h3 class="summary-card-title">교원 역량 강화</h3>
+                        <p class="summary-card-text">생활교육 및 심리상담 전문가 초빙 연수를 통해 교원의 위기대응 역량을 강화할 필요가 있습니다.</p>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-card-icon"><i class="fa-solid fa-robot"></i></div>
+                        <h3 class="summary-card-title">에듀테크 활용</h3>
+                        <p class="summary-card-text">'AI 마음일기' 등 현장에서 효과가 검증된 에듀테크 프로그램을 적극 도입하여 활용합니다.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- 새로운 섹션: 선제적 지원 (개요) -->
-        <section id="s10" class="slide content-section">
-            <div class="slide-content">
-                <div class="visual-container">
-                    <div class="icon-display"><i class="fa-solid fa-hand-holding-heart"></i></div>
-                </div>
-                <div class="text-container">
-                    <h2>선제적 지원</h2>
-                    <ul>
-                        <li><strong>위기 학급 식별 및 즉각 개입:</strong> 사전 진단 결과에 따라 심리적 해체 위험이 있는 학급에 대한 선제적인 지원 프로그램을 즉시 시행합니다.</li>
-                        <li><strong>맞춤형 프로그램 개발:</strong> 각 학급의 특성과 필요에 맞는 개별화된 지원 프로그램을 개발하고 적용하여 효과를 극대화합니다.</li>
-                        <li><strong>지속적인 모니터링:</strong> 지원 프로그램 진행 중에도 학생들의 변화를 지속적으로 모니터링하고, 필요에 따라 추가적인 개입을 제공합니다.</li>
-                    </ul>
+        <!-- 4. 선제적 지원 수정 -->
+        <section id="s10" class="content-section">
+            <div class="summary-container">
+                <h2 class="summary-title">선제적 지원</h2>
+                <div class="summary-card-container">
+                    <div class="summary-card">
+                        <div class="summary-card-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                        <h3 class="summary-card-title">위기 학급 식별 및 즉각 개입</h3>
+                        <p class="summary-card-text">사전 진단 결과에 따라 심리적 해체 위험이 있는 학급에 대한 선제적인 지원 프로그램을 즉시 시행합니다.</p>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-card-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+                        <h3 class="summary-card-title">맞춤형 프로그램 개발</h3>
+                        <p class="summary-card-text">각 학급의 특성과 필요에 맞는 개별화된 지원 프로그램을 개발하고 적용하여 효과를 극대화합니다.</p>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-card-icon"><i class="fa-solid fa-binoculars"></i></div>
+                        <h3 class="summary-card-title">지속적인 모니터링</h3>
+                        <p class="summary-card-text">지원 프로그램 진행 중에도 학생들의 변화를 지속적으로 모니터링하고, 필요에 따라 추가적인 개입을 제공합니다.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -808,11 +826,11 @@
         <section id="s9" class="slide content-section">
             <div class="slide-content">
                  <div class="visual-container">
-                     <div class="quote-display">
-                         <p>"집단 내에서 영향력 있는 학생들 역시 갈등을 부추기는 행동보다, 상황을 통제하거나 해결하려는 
+                       <div class="quote-display">
+                           <p>"집단 내에서 영향력 있는 학생들 역시 갈등을 부추기는 행동보다, 상황을 통제하거나 해결하려는 
 태도를 부분적으로 보이기 시작했으며, 스스로 조율하는 행동이 증가하는 긍정적인 흐름이 관찰되었습니다."</p>
-                         <footer>- 관계돋움 프로그램 종합 소견 中</footer>
-                     </div>
+                           <footer>- 관계돋움 프로그램 종합 소견 中</footer>
+                       </div>
                  </div>
                 <div class="text-container">
                     <h2>종합 결론 및 제언</h2>
