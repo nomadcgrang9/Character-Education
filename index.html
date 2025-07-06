@@ -462,7 +462,7 @@
 태도를 부분적으로 보이기 시작했으며, 스스로 조율하는 행동이 증가하는 긍정적인 흐름이 관찰되었습니다."</p>
                          <footer>- 관계돋움 프로그램 종합 소견 中</footer>
                      </div>
-                </div>
+                 </div>
                 <div class="text-container">
                     <h2>총평</h2>
                     <ul>
@@ -511,7 +511,8 @@
         <section id="s10-1" class="slide content-section">
             <div class="slide-content">
                 <div class="visual-container">
-                    <img src="uploaded:선제적 지원 01.png-9930e1ce-044c-447d-bf28-f40f748f2489" alt="선제적 지원 예산 현황" class="responsive-image">
+                    <!-- GitHub Pages 배포용 경로로 변경 -->
+                    <img src="선제적 지원 01.png" alt="선제적 지원 예산 현황" class="responsive-image">
                 </div>
                 <div class="text-container">
                     <h2>예산 현황</h2>
@@ -545,7 +546,8 @@
         <section id="s11-1" class="slide content-section">
             <div class="slide-content">
                 <div class="visual-container">
-                    <img src="uploaded:AI마음일기 01.png-bf0f4325-aa0d-4ee0-8e8c-b05402863b17" alt="AI 마음일기 일기 관리 화면" class="responsive-image">
+                    <!-- GitHub Pages 배포용 경로로 변경 -->
+                    <img src="AI마음일기 01.png" alt="AI 마음일기 일기 관리 화면" class="responsive-image">
                 </div>
                 <div class="text-container">
                     <h2>일기 관리</h2>
@@ -562,7 +564,8 @@
         <section id="s11-2" class="slide content-section">
             <div class="slide-content">
                 <div class="visual-container">
-                    <img src="uploaded:AI마음일기 02.png-6497830a-8a72-4401-8130-aaefae82bacb" alt="AI 마음일기 대시보드 화면" class="responsive-image">
+                    <!-- GitHub Pages 배포용 경로로 변경 -->
+                    <img src="AI마음일기 02.png" alt="AI 마음일기 대시보드 화면" class="responsive-image">
                 </div>
                 <div class="text-container">
                     <h2>대시보드</h2>
@@ -579,7 +582,8 @@
         <section id="s11-3" class="slide content-section">
             <div class="slide-content">
                 <div class="visual-container">
-                    <img src="uploaded:AI마음일기 03.png-397e2133-59b9-428e-88e2-dbe3fc7eb52" alt="AI 마음일기 일기 상세 화면" class="responsive-image">
+                    <!-- GitHub Pages 배포용 경로로 변경 -->
+                    <img src="AI마음일기 03.png" alt="AI 마음일기 일기 상세 화면" class="responsive-image">
                 </div>
                 <div class="text-container">
                     <h2>일기 상세</h2>
@@ -596,7 +600,8 @@
         <section id="s11-4" class="slide content-section">
             <div class="slide-content">
                 <div class="visual-container">
-                    <img src="uploaded:AI마음일기 04.png-dd8f2dc6-bbc3-4d5c-9adb-43125067814b" alt="AI 마음일기 감정 달력 화면" class="responsive-image">
+                    <!-- GitHub Pages 배포용 경로로 변경 -->
+                    <img src="AI마음일기 04.png" alt="AI 마음일기 감정 달력 화면" class="responsive-image">
                 </div>
                 <div class="text-container">
                     <h2>감정 달력</h2>
@@ -681,7 +686,7 @@
                         const nestedList = clickedLiParent.querySelector('.nested-list');
                         if (nestedList) { // 하위 목록이 있는 경우에만 토글
                             // 현재 클릭된 토글의 is-open 상태를 토글
-                            clickedLiParent.classList.toggle('is-open');
+                            const wasOpen = clickedLiParent.classList.contains('is-open');
 
                             // 같은 레벨의 다른 토글 닫기 (누른 것만 열리도록)
                             const directParentUl = clickedLiParent.parentElement;
@@ -692,6 +697,11 @@
                                         siblingLi.classList.remove('is-open');
                                     }
                                 });
+                            }
+                            
+                            // 만약 클릭된 토글이 이전에 닫혀있었다면 열기
+                            if (!wasOpen) {
+                                clickedLiParent.classList.add('is-open');
                             }
                         }
                     }
