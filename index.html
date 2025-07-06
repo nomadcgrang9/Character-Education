@@ -83,9 +83,9 @@
             font-weight: 600;
         }
         
-        /* 위키트리(토글) 스타일 */
+        /* --- 위키트리(토글) 스타일 수정 --- */
         .toggle-header {
-            font-weight: bold; /* 상위 토글임을 나타내기 위해 굵게 */
+            font-weight: 600; /* 중간 토글 굵기 조정 */
             display: flex;
             align-items: center;
             padding: 0.8rem 1rem;
@@ -100,33 +100,46 @@
         
         .nested-list {
             list-style: none;
-            padding-left: 30px; /* 들여쓰기 강화 */
             margin-top: 0;
             display: none;
+            padding-left: 25px; /* 연결선 없이 들여쓰기만 적용 */
         }
+
         .toggle-item.is-open > .nested-list {
             display: block;
         }
 
-        /* 펼쳐진 상위 토글 헤더 스타일 */
         .toggle-item.is-open > .toggle-header {
-            background-color: rgba(138, 43, 226, 0.1); /* 펼쳐졌을 때 배경색 변경 */
-            color: var(--primary-color); /* 텍스트 색상 유지 또는 변경 */
+            background-color: rgba(138, 43, 226, 0.1);
+            color: var(--primary-color);
         }
 
         /* 하위 토글 내의 링크 스타일 */
         .nested-list a {
-            font-size: 0.95rem; /* 약간 작은 글씨 */
-            color: #4a5568; /* 약간 연한 색상 */
-            padding: 0.6rem 1rem; /* 패딩 조정 */
-            font-weight: 500; /* 하위 링크는 기본 굵기로 */
+            font-size: 0.95rem;
+            color: var(--text-color);
+            padding: 0.6rem 1rem;
+            font-weight: 500;
         }
         .nested-list a:hover {
-            background-color: rgba(138, 43, 226, 0.05); /* 하위 링크 호버 효과 */
+            background-color: rgba(138, 43, 226, 0.05);
         }
         .nested-list a.active {
             background-color: var(--primary-color);
             color: white;
+        }
+
+        /* 최하위 토글(leaf-node) 스타일 */
+        .nested-list li:not(.toggle-item) > a {
+            color: #4a5568; /* 약간 연한 색상 */
+            font-weight: 400; /* 더 가는 굵기 */
+        }
+        .nested-list li:not(.toggle-item) > a:hover {
+            color: var(--primary-color);
+        }
+        .nested-list li:not(.toggle-item) > a.active {
+            color: white;
+            font-weight: 500;
         }
 
 
@@ -221,9 +234,6 @@
         .comparison-chart .bar-sub-label { width: 50px; font-size: 0.9rem; color: #555; }
         
         .icon-display { font-size: 10rem; color: var(--primary-color); opacity: 0.8; }
-        .quote-display { padding: 2rem; text-align: center; border-left: 5px solid var(--secondary-color); background: rgba(138, 43, 226, 0.05); }
-        .quote-display p { font-size: 1.8rem; line-height: 1.6; color: var(--primary-color); margin: 0; font-style: italic; }
-        .quote-display footer { margin-top: 1rem; font-size: 1rem; color: var(--text-color); }
         
         .hero { text-align: center; }
         .hero h1 { font-size: 3.5rem; color: var(--primary-color); margin-bottom: 1rem; font-weight: 700; line-height: 1.2; }
@@ -235,6 +245,73 @@
             height: auto;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        /* s7 총평 섹션 전용 스타일 */
+        .summary-container {
+            width: 100%;
+            max-width: 1400px;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .summary-title {
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 3.5rem;
+            font-weight: 700;
+        }
+
+        .summary-card-container {
+            display: flex;
+            justify-content: space-around;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .summary-card {
+            background-color: var(--card-bg-color);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.07);
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            text-align: center;
+            border-top: 5px solid transparent;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-top-color 0.3s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary-card:nth-child(1) { border-top-color: var(--primary-color); }
+        .summary-card:nth-child(2) { border-top-color: var(--secondary-color); }
+        .summary-card:nth-child(3) { border-top-color: var(--accent-color); }
+
+
+        .summary-card-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+        .summary-card:nth-child(1) .summary-card-icon { color: var(--primary-color); }
+        .summary-card:nth-child(2) .summary-card-icon { color: var(--secondary-color); }
+        .summary-card:nth-child(3) .summary-card-icon { color: var(--accent-color); }
+
+
+        .summary-card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .summary-card-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #4a5568;
         }
 
         @media (max-width: 1024px) {
@@ -562,22 +639,28 @@
             </div>
         </section>
 
-        <section id="s7" class="slide content-section">
-            <div class="slide-content">
-                <div class="visual-container">
-                     <div class="quote-display">
-                         <p>"집단 내에서 영향력 있는 학생들 역시 갈등을 부추기는 행동보다, 상황을 통제하거나 해결하려는 
-태도를 부분적으로 보이기 시작했으며, 스스로 조율하는 행동이 증가하는 긍정적인 흐름이 관찰되었습니다."</p>
-                         <footer>- 관계돋움 프로그램 종합 소견 中</footer>
-                     </div>
-                 </div>
-                <div class="text-container">
-                    <h2>총평</h2>
-                    <ul>
-                        <li><strong>관계 형성:</strong> 상호작용이 없던 학생들이 놀이를 통해 <strong>함께 협력하고 공간을 연결</strong>하는 모습으로 변화함 (A반)</li>
-                        <li><strong>갈등 조율:</strong> 학생들이 치료사 개입 없이 <strong>스스로 갈등을 조율</strong>하고 해결하려는 시도가 증가함 (B반)</li>
-                        <li><strong>존중 문화 형성:</strong> '타인 평가 금지' 규칙이 정착되며 조롱 대신 <strong>상호 존중과 경청의 문화</strong>가 자리잡음 (C반)</li>
-                    </ul>
+        <section id="s7" class="content-section">
+            <div class="summary-container">
+                <h2 class="summary-title">관계돋움 프로그램 종합 소견</h2>
+                <div class="summary-card-container">
+                    <!-- Card 1: 관계 형성 -->
+                    <div class="summary-card">
+                        <div class="summary-card-icon"><i class="fa-solid fa-hands-holding-child"></i></div>
+                        <h3 class="summary-card-title">관계 형성 (A반)</h3>
+                        <p class="summary-card-text">상호작용이 거의 없던 학생들이 '무궁화꽃이 피었습니다' 놀이를 통해 손을 잡고 함께 이동하는 등 협력적인 모습을 보였습니다. 닫혀 있던 공간을 연결하고 함께하는 즐거움을 경험하며 긍정적인 관계의 시작을 열었습니다.</p>
+                    </div>
+                    <!-- Card 2: 갈등 조율 -->
+                    <div class="summary-card">
+                        <div class="summary-card-icon"><i class="fa-solid fa-people-arrows"></i></div>
+                        <h3 class="summary-card-title">갈등 조율 (B반)</h3>
+                        <p class="summary-card-text">초기에는 치료사의 개입이 필요했던 갈등 상황에서, 후반부로 갈수록 학생들이 "우리끼리 해결해볼게요"라며 자발적으로 문제를 조율하려는 시도가 눈에 띄게 증가했습니다. 자기들만의 규칙을 만들고 갈등을 해결하는 능력이 향상되었습니다.</p>
+                    </div>
+                    <!-- Card 3: 존중 문화 -->
+                    <div class="summary-card">
+                        <div class="summary-card-icon"><i class="fa-solid fa-handshake-simple"></i></div>
+                        <h3 class="summary-card-title">존중 문화 형성 (C반)</h3>
+                        <p class="summary-card-text">'타인 평가 금지' 규칙이 안정적으로 정착되면서, 이전의 조롱과 비난이 사라지고 서로의 의견을 경청하고 존중하는 문화가 형성되었습니다. 안전한 분위기 속에서 학생들이 자신을 솔직하게 표현하기 시작했습니다.</p>
+                    </div>
                 </div>
             </div>
         </section>
